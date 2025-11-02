@@ -1,21 +1,26 @@
 using System;
 using Framework;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-namespace Player
+namespace Core.Player
 {
     [Serializable]
     public class PlayerMovements : Updatable<PlayerController>
     {
         [SerializeField] private float speed;
-        public override void Start(PlayerController contoller)
+        [SerializeField] private InputActionReference moveAction;
+
+        public override void Start(PlayerController controller)
         {
-            // Nothing to do in here
+            moveAction.action.Enable();
         }
 
         public override void Update(PlayerController controller)
         {
-            controller.transform.position += controller.transform.forward * (speed * Time.deltaTime);
+            Vector2 input = moveAction.action.ReadValue<Vector2>();
+            Vector3 move = new Vector3(input.x, 0, input.y);
+            controller.transform.position += move * (speed * Time.deltaTime);
         }
     }
 }

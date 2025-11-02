@@ -3,7 +3,7 @@ using Framework;
 using Framework.Controller;
 using UnityEngine;
 
-namespace Player
+namespace Core.Player
 {
     public class PlayerController : BaseController<PlayerController>
     {
