@@ -1,4 +1,5 @@
 using System;
+using Core.Interaction;
 using Framework;
 using Framework.Extensions;
 using UnityEngine;
@@ -21,21 +22,33 @@ namespace Core.Player
             if (interactionAction == null) Debug.LogError("No player interaction action set in PlayerInteraction");
             else
             {
-                interactionAction.action.performed += _ => Interact();
+                interactionAction.action.performed += _ => Interact(controller);
                 interactionAction.action.Enable();
             }
         }
 
         public override void Update(PlayerController controller)
         {
-            var dir = _playerMovement.direction;
+            
         }
 
-        public void Interact()
+        public void Interact(PlayerController controller)
         {
-            // TODO : create temporary collider triggering box that check if 
-            //  there is a gameobject that I can interact with (who inherit from interface) 
             Debug.LogWarning("Interacting...");
+            
+            Vector3 origin = controller.body.transform.position;
+            origin = origin.AddY(1.4f);
+            Vector3 center = origin + _playerMovement.direction * interactionDistance;
+
+            Collider[] hits = Physics.OverlapSphere(center, interactionRadius);
+            foreach (var hit in hits)
+            {
+                IInteractable interactable = hit.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    interactable.Interact();
+                }
+            }
         }
 
         public override void OnDrawGizmos(PlayerController controller)
