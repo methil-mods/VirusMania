@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Framework;
 using Framework.Controller;
@@ -10,6 +11,8 @@ namespace Core.Player
         [SerializeReference, SubclassSelector]
         public List<Updatable<PlayerController>> updatables = new List<Updatable<PlayerController>>();
 
+        public Transform body;
+
         public void Start()
         {
             foreach (var updatable in updatables) updatable.Start(this);
@@ -18,6 +21,11 @@ namespace Core.Player
         public void Update()
         {
             foreach (var updatable in updatables) updatable.Update(this);
+        }
+
+        private void FixedUpdate()
+        {
+            foreach (var updatable in updatables) updatable.FixedUpdate(this);
         }
 
         public void OnDrawGizmos()

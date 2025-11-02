@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7202077102157196803}
   - component: {fileID: 7685337288072433343}
   - component: {fileID: 1067060958189022309}
+  - component: {fileID: 4508348940606324803}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -68,6 +69,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a19a7e6de302e4056914e6622646e88b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -113,6 +115,33 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4508348940606324803
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041574615185197897}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!1 &4380091940914327690
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,14 +189,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Player.PlayerController
   updatables:
-  - rid: 9208438514658574526
+  - rid: 9208438514658574534
+  body: {fileID: 1235541382456198678}
   references:
     version: 2
     RefIds:
-    - rid: 9208438514658574526
-      type: {class: PlayerMovements, ns: Core.Player, asm: Assembly-CSharp}
+    - rid: 9208438514658574534
+      type: {class: PlayerMovement, ns: Core.Player, asm: Assembly-CSharp}
       data:
-        speed: 5
+        speed: 10
+        acceleration: 10
         moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!81 &1748281298581342933
 AudioListener:
