@@ -14,6 +14,8 @@ namespace Core.Player
         [SerializeField] private float acceleration = 10f;
         [Header("Movement Input")]
         [SerializeField] private InputActionReference moveAction;
+        [Header("Animation Settings")]
+        [SerializeField] private Animator animator;
 
         private Rigidbody rb;
         private Vector3 currentVelocity;
@@ -23,6 +25,8 @@ namespace Core.Player
         public override void Start(PlayerController controller)
         {
             if (moveAction == null) Debug.LogError("No player move action set in PlayerMovement");
+            if (animator == null) Debug.LogError("No animator set in PlayerMovement");
+            
             moveAction.action.Enable();
             
             rb = controller.GetComponent<Rigidbody>();
@@ -34,12 +38,17 @@ namespace Core.Player
             Vector2 input = moveAction.action.ReadValue<Vector2>();
             Vector3 targetVelocity = new Vector3(input.x, 0, input.y) * speed;
             currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
+            animator.SetFloat("Speed", currentVelocity.magnitude);
             Vector3 velocityChange = currentVelocity - rb.linearVelocity;
             velocityChange.y = 0;
             rb.AddForce(velocityChange, ForceMode.VelocityChange);
-            
+
             if (currentVelocity.sqrMagnitude > 0.001f)
+            {
                 direction = currentVelocity.normalized;
+                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                rb.MoveRotation(Quaternion.Slerp(rb.rotation, targetRotation, acceleration * Time.fixedDeltaTime));
+            }
         }
 
         public override void OnDrawGizmos(PlayerController controller)

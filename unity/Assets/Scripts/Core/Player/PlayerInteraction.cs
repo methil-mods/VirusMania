@@ -21,6 +21,9 @@ namespace Core.Player
         [Header("Interaction Input")]
         [SerializeField] private InputActionReference interactionAction;
         [SerializeField] private InputActionReference interactionHoldAction;
+        
+        [Header("Animation Settings")]
+        [SerializeField] private Animator animator;
 
         private HoldItem _holdingItem;
         private bool _isInteractingHeld;
@@ -83,12 +86,16 @@ namespace Core.Player
         {
             var item = _holdingItem;
             _holdingItem = null;
+            Debug.Log("Setting animatio holding to false");
+            animator.SetBool("Holding", false);
             return item;
         }
 
         public bool GiveItem(HoldItem newItem)
         {
             if (_holdingItem != null) return false;
+            Debug.Log("Setting animatio holding to true");
+            animator.SetBool("Holding", true);
             _holdingItem = newItem;
             return true;
         }
