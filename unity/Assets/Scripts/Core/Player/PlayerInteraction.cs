@@ -82,7 +82,10 @@ namespace Core.Player
             foreach (var hit in hits)
             {
                 if (hit.TryGetComponent<IInteractable>(out var interactable))
+                {
                     interactable.Interact(controller);
+                    break;
+                }
             }
         }
 
