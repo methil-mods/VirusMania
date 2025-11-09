@@ -16,3 +16,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 39502d78a92174d59bded3c162ba419e, type: 2}
   - {fileID: 11400000, guid: 2efb76b9ef93843b3816f1e68cbaaec1, type: 2}
   - {fileID: 11400000, guid: eef873dfaef0e4d03b1fd9a4b02f1464, type: 2}
+  BuyableItems:
+  - {fileID: 11400000, guid: 39502d78a92174d59bded3c162ba419e, type: 2}
+  - {fileID: 11400000, guid: 2efb76b9ef93843b3816f1e68cbaaec1, type: 2}

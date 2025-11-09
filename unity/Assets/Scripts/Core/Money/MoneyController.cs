@@ -7,7 +7,7 @@ namespace Core.Money
 {
     public class MoneyController : BaseController<MoneyController>
     {
-        public int money;
+        public int money = 15;
 
         public Action<int> OnMoneyAdded;
         public Action<int> OnMoneyRemoved;

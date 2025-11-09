@@ -10,8 +10,10 @@ namespace Core.Computer
     {
         public List<ComputerApplication> applications;
 
-        private void Start()
+        protected void Start()
         {
+            base.Start();
+            
             foreach (var app in applications)
             {
                 app.applicationPanel.SetActive(false);

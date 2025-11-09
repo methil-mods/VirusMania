@@ -9,6 +9,8 @@ namespace Core.Item
         public string itemName;
         public string itemDescription;
         public GameObject itemPrefab;
+        public Sprite itemIcon;
+        public int price;
 
         public virtual HoldItem GetHoldItem()
         {
