@@ -25,7 +25,11 @@ namespace Core.Player
         [Header("Animation Settings")]
         [SerializeField] private Animator animator;
 
+        [Header("Item Holding")]
+        [SerializeField] private Transform holdingItemTransform;
+
         private HoldItem _holdingItem;
+        private GameObject _spawnedHeldItem;
         private bool _isInteractingHeld;
 
         public bool HasItem => _holdingItem != null;
@@ -86,18 +90,42 @@ namespace Core.Player
         {
             var item = _holdingItem;
             _holdingItem = null;
-            Debug.Log("Setting animatio holding to false");
+
+            if (_spawnedHeldItem != null)
+            {
+                UnityEngine.Object.Destroy(_spawnedHeldItem);
+                _spawnedHeldItem = null;
+            }
+
+            Debug.Log("Setting animation holding to false");
             animator.SetBool("Holding", false);
             return item;
         }
 
         public bool GiveItem(HoldItem newItem)
         {
-            if (_holdingItem != null) return false;
-            Debug.Log("Setting animatio holding to true");
-            animator.SetBool("Holding", true);
+            if (_holdingItem != null || newItem == null || newItem.Item == null)
+                return false;
+
             _holdingItem = newItem;
+            animator.SetBool("Holding", true);
+            Debug.Log("Setting animation holding to true");
+
+            SpawnHeldItem();
             return true;
+        }
+
+        private void SpawnHeldItem()
+        {
+            if (_holdingItem?.Item?.itemPrefab == null || holdingItemTransform == null)
+                return;
+
+            _spawnedHeldItem = UnityEngine.Object.Instantiate(
+                _holdingItem.Item.itemPrefab,
+                holdingItemTransform.position,
+                holdingItemTransform.rotation,
+                holdingItemTransform
+            );
         }
 
         public override void OnDrawGizmos(PlayerController controller)

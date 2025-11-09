@@ -278,7 +278,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21137e480fd4cb0bf5fdbfa1debf2a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Core.Interaction.CookInteractable
-  startItem: {fileID: 0}
+  maxHoldableItems: 3
+  startItems: []
+  itemParent: {fileID: 0}
+  itemOffset: {x: 0, y: 1, z: 0.5}
+  OnItemAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemsChanged:
+    m_PersistentCalls:
+      m_Calls: []
   cookTime: 5
 --- !u!65 &420151387
 BoxCollider:
@@ -367,7 +379,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.06, y: 0.77, z: 7.28}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -637,7 +649,17 @@ MonoBehaviour:
   maxHoldableItems: 3
   startItems:
   - {fileID: 11400000, guid: 39502d78a92174d59bded3c162ba419e, type: 2}
-  - {fileID: 11400000, guid: 2efb76b9ef93843b3816f1e68cbaaec1, type: 2}
+  itemParent: {fileID: 0}
+  itemOffset: {x: 0, y: 1, z: 0.5}
+  OnItemAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemsChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1125344316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -725,7 +747,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.78, y: 0.77, z: -5.9}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -764,6 +786,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Interaction.BrewInteractable
   maxHoldableItems: 2
   startItems: []
+  itemParent: {fileID: 0}
+  itemOffset: {x: 0, y: 1, z: 0.5}
+  OnItemAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemsChanged:
+    m_PersistentCalls:
+      m_Calls: []
   mergeHoldTime: 5
   cooldownSpeed: 1
   holdReleaseDelay: 0.1
@@ -854,7 +887,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.78, y: 0.77, z: 7.28}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -894,6 +927,17 @@ MonoBehaviour:
   maxHoldableItems: 3
   startItems:
   - {fileID: 11400000, guid: 39502d78a92174d59bded3c162ba419e, type: 2}
+  itemParent: {fileID: 0}
+  itemOffset: {x: 0, y: 1, z: 0.5}
+  OnItemAdded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemRemoved:
+    m_PersistentCalls:
+      m_Calls: []
+  OnItemsChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &1629900696
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -981,7 +1025,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -8.11, y: 0.77, z: -5.9}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1279,7 +1323,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.16, y: 0.77, z: 7.28}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
