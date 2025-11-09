@@ -2,39 +2,27 @@ using System.Collections.Generic;
 using Core.Item;
 using Core.Item.Merge;
 using Core.Player;
-using Framework.Extensions;
 using UnityEngine;
 
 namespace Core.Interaction
 {
-    public class BrewInteractable : MonoBehaviour, IInteractable
+    public class BrewInteractable : ItemHolderInteractable
     {
-        [Header("Configuration")]
-        [SerializeField] private int maxHoldableItems = 3;
-        [SerializeField] private List<Item.Item> startItems;
-
         [Header("Fusion System")]
         [SerializeField] private float mergeHoldTime = 5f;
         [SerializeField] private float cooldownSpeed = 1f;
         [SerializeField] private float holdReleaseDelay = 0.1f;
 
-        [Header("Runtime")]
-        public List<HoldItem> HoldingItems = new List<HoldItem>();
-
         private float holdTimer = 0f;
         private bool isBeingHeld = false;
         private float lastHoldTime = -999f;
 
-        private void Start()
+        protected override void Start()
         {
-            if (startItems != null && startItems.Count > 0)
-            {
-                foreach (var item in startItems)
-                {
-                    if (item != null && HoldingItems.Count < maxHoldableItems)
-                        HoldingItems.Add(item.GetHoldItem());
-                }
-            }
+            base.Start();
+
+            OnItemAdded.AddListener(_ => ResetFusion());
+            OnItemRemoved.AddListener(_ => ResetFusion());
         }
 
         private void Update()
@@ -46,33 +34,7 @@ namespace Core.Interaction
                 holdTimer = Mathf.Max(0f, holdTimer - Time.deltaTime * cooldownSpeed);
         }
 
-        public void Interact(PlayerController playerController)
-        {
-            PlayerInteraction playerInteraction = playerController.updatables.FirstOfType<PlayerInteraction>();
-            if (playerInteraction == null) return;
-
-            if (playerInteraction.HasItem)
-            {
-                if (HoldingItems.Count < maxHoldableItems)
-                {
-                    HoldItem removedItem = playerInteraction.RemoveItem();
-                    if (removedItem != null)
-                        HoldingItems.Add(removedItem);
-                }
-            }
-            else
-            {
-                if (HoldingItems.Count > 0)
-                {
-                    HoldItem itemToGive = HoldingItems[^1];
-                    bool given = playerInteraction.GiveItem(itemToGive);
-                    if (given)
-                        HoldingItems.RemoveAt(HoldingItems.Count - 1);
-                }
-            }
-        }
-
-        public void InteractHold(PlayerController playerController)
+        public override void InteractHold(PlayerController playerController)
         {
             isBeingHeld = true;
             lastHoldTime = Time.time;
@@ -100,43 +62,25 @@ namespace Core.Interaction
 
             if (mergedItem != null)
             {
-                HoldingItems.Clear();
-                HoldingItems.Add(mergedItem.GetHoldItem());
+                foreach (var h in new List<HoldItem>(HoldingItems))
+                    RemoveItem(h);
+
+                AddItem(mergedItem.GetHoldItem());
+                ResetFusion();
             }
         }
 
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
+        private void ResetFusion()
         {
-            Vector3 titlePos = transform.position + Vector3.up * 3f;
-            GUIStyle titleStyle = new GUIStyle
-            {
-                normal = new GUIStyleState { textColor = Color.cyan },
-                alignment = TextAnchor.MiddleCenter,
-                fontStyle = FontStyle.Bold
-            };
-            UnityEditor.Handles.Label(titlePos, gameObject.name, titleStyle);
+            holdTimer = 0f;
+            isBeingHeld = false;
+            lastHoldTime = -999f;
+        }
 
-            if (HoldingItems != null && HoldingItems.Count > 0)
-            {
-                Vector3 basePos = transform.position + Vector3.up * 2f;
-                GUIStyle style = new GUIStyle
-                {
-                    normal = new GUIStyleState { textColor = Color.yellow },
-                    alignment = TextAnchor.MiddleCenter,
-                    fontStyle = FontStyle.Bold
-                };
-
-                for (int i = 0; i < HoldingItems.Count; i++)
-                {
-                    var holdItem = HoldingItems[i];
-                    if (holdItem?.Item != null)
-                    {
-                        Vector3 pos = basePos + Vector3.up * (0.3f * i);
-                        UnityEditor.Handles.Label(pos, holdItem.Item.itemName, style);
-                    }
-                }
-            }
+#if UNITY_EDITOR
+        protected override void OnDrawGizmos()
+        {
+            base.OnDrawGizmos();
 
             if (Application.isPlaying && HoldingItems.Count >= 2)
             {

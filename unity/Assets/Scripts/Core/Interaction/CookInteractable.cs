@@ -1,118 +1,68 @@
 using Core.Item;
 using Core.Item.Cook;
-using Core.Player;
-using Framework.Extensions;
 using UnityEngine;
 
 namespace Core.Interaction
 {
-    public class CookInteractable : MonoBehaviour, IInteractable
+    public class CookInteractable : ItemHolderInteractable
     {
-        [Header("Configuration")]
-        [SerializeField] private Item.Item startItem;
-
         [Header("Cooking System")]
         [SerializeField] private float cookTime = 5f;
 
-        [Header("Runtime")]
-        public HoldItem HoldingItem;
-
         private float cookTimer = 0f;
         private bool isCooking = false;
+        private HoldItem currentItem;
 
-        private void Start()
+        protected override void Start()
         {
-            if (startItem != null)
-                HoldingItem = startItem.GetHoldItem();
+            maxHoldableItems = 1;
+            base.Start();
+
+            OnItemAdded.AddListener(StartCooking);
+            OnItemRemoved.AddListener(StopCooking);
         }
 
         private void Update()
         {
-            if (HoldingItem == null)
-            {
-                cookTimer = 0f;
-                isCooking = false;
-                return;
-            }
+            if (!isCooking || currentItem == null) return;
 
-            Item.Item cooked = CookUtils.TryCook(HoldingItem.Item);
+            var cooked = CookUtils.TryCook(currentItem.Item);
             if (cooked == null)
             {
-                cookTimer = 0f;
-                isCooking = false;
+                StopCooking(currentItem);
                 return;
             }
 
-            isCooking = true;
             cookTimer += Time.deltaTime;
 
             if (cookTimer >= cookTime)
             {
-                HoldingItem = cooked.GetHoldItem();
-                cookTimer = 0f;
-                isCooking = false;
+                RemoveItem(currentItem);
+                AddItem(cooked.GetHoldItem());
+                StopCooking(currentItem);
             }
         }
 
-        public void Interact(PlayerController playerController)
+        private void StartCooking(HoldItem item)
         {
-            PlayerInteraction playerInteraction = playerController.updatables.FirstOfType<PlayerInteraction>();
-            if (playerInteraction == null) return;
-
-            if (playerInteraction.HasItem)
-            {
-                if (HoldingItem == null)
-                {
-                    HoldItem removedItem = playerInteraction.RemoveItem();
-                    if (removedItem != null)
-                        HoldingItem = removedItem;
-                }
-            }
-            else
-            {
-                if (HoldingItem != null)
-                {
-                    bool given = playerInteraction.GiveItem(HoldingItem);
-                    if (given)
-                    {
-                        HoldingItem = null;
-                        cookTimer = 0f;
-                        isCooking = false;
-                    }
-                }
-            }
+            currentItem = item;
+            isCooking = true;
+            cookTimer = 0f;
         }
 
-        public void InteractHold(PlayerController playerController)
+        private void StopCooking(HoldItem item)
         {
-            return;
+            isCooking = false;
+            cookTimer = 0f;
+            currentItem = null;
         }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmos()
+        protected override void OnDrawGizmos()
         {
-            Vector3 titlePos = transform.position + Vector3.up * 3f;
-            GUIStyle titleStyle = new GUIStyle
-            {
-                normal = new GUIStyleState { textColor = Color.cyan },
-                alignment = TextAnchor.MiddleCenter,
-                fontStyle = FontStyle.Bold
-            };
-            UnityEditor.Handles.Label(titlePos, gameObject.name, titleStyle);
+            base.OnDrawGizmos();
 
-            if (HoldingItem != null && HoldingItem.Item != null)
-            {
-                Vector3 pos = transform.position + Vector3.up * 2f;
-                GUIStyle style = new GUIStyle
-                {
-                    normal = new GUIStyleState { textColor = Color.yellow },
-                    alignment = TextAnchor.MiddleCenter,
-                    fontStyle = FontStyle.Bold
-                };
-                UnityEditor.Handles.Label(pos, HoldingItem.Item.itemName, style);
-            }
-
-            if (Application.isPlaying && isCooking && HoldingItem != null)
+            if (Application.isPlaying && isCooking && currentItem != null)
             {
                 float progress = Mathf.Clamp01(cookTimer / cookTime);
                 UnityEditor.Handles.Label(transform.position + Vector3.up * 3.5f,

@@ -4,31 +4,40 @@ using Core.Item;
 using Core.Player;
 using Framework.Extensions;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Core.Interaction
 {
     public class ItemHolderInteractable : MonoBehaviour, IInteractable
     {
         [Header("Configuration")]
-        [SerializeField] private int maxHoldableItems = 3;
-        [SerializeField] private List<Item.Item> startItems;
+        [SerializeField] protected int maxHoldableItems = 3;
+        [SerializeField] protected List<Item.Item> startItems;
+        [SerializeField] protected Transform itemParent;
+        [SerializeField] protected Vector3 itemOffset = new Vector3(0, 1f, 0.5f);
+
+        [Header("Events")]
+        public UnityEvent<HoldItem> OnItemAdded;
+        public UnityEvent<HoldItem> OnItemRemoved;
+        public UnityEvent OnItemsChanged;
 
         [Header("Runtime")]
         public List<HoldItem> HoldingItems = new List<HoldItem>();
+        protected List<GameObject> spawnedPrefabs = new List<GameObject>();
 
-        private void Start()
+        protected virtual void Start()
         {
             if (startItems != null && startItems.Count > 0)
             {
                 foreach (var item in startItems)
                 {
                     if (item != null && HoldingItems.Count < maxHoldableItems)
-                        HoldingItems.Add(item.GetHoldItem());
+                        AddItem(item.GetHoldItem());
                 }
             }
         }
 
-        public void Interact(PlayerController playerController)
+        public virtual void Interact(PlayerController playerController)
         {
             PlayerInteraction playerInteraction = playerController.updatables.FirstOfType<PlayerInteraction>();
             if (playerInteraction == null) return;
@@ -39,7 +48,7 @@ namespace Core.Interaction
                 {
                     HoldItem removedItem = playerInteraction.RemoveItem();
                     if (removedItem != null)
-                        HoldingItems.Add(removedItem);
+                        AddItem(removedItem);
                 }
             }
             else
@@ -49,18 +58,53 @@ namespace Core.Interaction
                     HoldItem itemToGive = HoldingItems[^1];
                     bool givedItem = playerInteraction.GiveItem(itemToGive);
                     if (givedItem)
-                        HoldingItems.RemoveAt(HoldingItems.Count - 1);
+                        RemoveItem(itemToGive);
                 }
             }
         }
 
-        public void InteractHold(PlayerController playerController)
+        public virtual void AddItem(HoldItem holdItem)
+        {
+            if (holdItem == null || holdItem.Item == null || HoldingItems.Count >= maxHoldableItems) return;
+            HoldingItems.Add(holdItem);
+
+            if (holdItem.Item.itemPrefab != null)
+            {
+                Vector3 pos = transform.position + itemOffset + Vector3.up * 0.3f * (HoldingItems.Count - 1);
+                Transform parent = itemParent != null ? itemParent : transform;
+                GameObject spawned = Instantiate(holdItem.Item.itemPrefab, pos, Quaternion.identity, parent);
+                spawnedPrefabs.Add(spawned);
+            }
+
+            OnItemAdded?.Invoke(holdItem);
+            OnItemsChanged?.Invoke();
+        }
+
+        public virtual void RemoveItem(HoldItem holdItem)
+        {
+            if (holdItem == null) return;
+            int index = HoldingItems.IndexOf(holdItem);
+            if (index >= 0)
+            {
+                HoldingItems.RemoveAt(index);
+                if (index < spawnedPrefabs.Count && spawnedPrefabs[index] != null)
+                {
+                    Destroy(spawnedPrefabs[index]);
+                    spawnedPrefabs.RemoveAt(index);
+                }
+
+                OnItemRemoved?.Invoke(holdItem);
+                OnItemsChanged?.Invoke();
+            }
+        }
+
+        public virtual void InteractHold(PlayerController playerController)
         {
             Debug.Log("Interacting hold with " + gameObject.name);
         }
 
 #if UNITY_EDITOR
-        private void OnDrawGizmos()
+        protected virtual void OnDrawGizmos()
         {
             Vector3 titlePos = transform.position + Vector3.up * 3f;
             GUIStyle titleStyle = new GUIStyle
