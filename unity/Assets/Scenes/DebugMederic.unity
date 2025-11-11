@@ -264,7 +264,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &314272911
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -671,6 +671,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: walk-holding
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 927b1c75325084e599b57eb4a49fc9ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -731,7 +735,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 19965e49cf3e34c4cbe4d27eaa573933, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 9357ede8cd2e14e98b5e8e284e243003, type: 2}
+      objectReference: {fileID: 2100000, guid: a118c7e794f4a478f9982d938e7ff5f5, type: 2}
     - target: {fileID: -7511558181221131132, guid: 19965e49cf3e34c4cbe4d27eaa573933, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
