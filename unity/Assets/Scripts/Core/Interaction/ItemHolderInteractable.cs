@@ -75,11 +75,12 @@ namespace Core.Interaction
 
             if (holdItem.Item.itemPrefab != null)
             {
-                Vector3 pos = transform.position + itemOffset + Vector3.up * 0.3f * (HoldingItems.Count - 1);
                 Transform parent = itemParent != null ? itemParent : transform;
-                GameObject spawned = Instantiate(holdItem.Item.itemPrefab, pos, Quaternion.identity, parent);
+                GameObject spawned = Instantiate(holdItem.Item.itemPrefab, parent);
                 spawnedPrefabs.Add(spawned);
             }
+
+            UpdateItemPositions();
 
             OnItemAdded?.Invoke(holdItem);
             OnItemsChanged?.Invoke();
@@ -98,6 +99,8 @@ namespace Core.Interaction
                     spawnedPrefabs.RemoveAt(index);
                 }
 
+                UpdateItemPositions();
+
                 OnItemRemoved?.Invoke(holdItem);
                 OnItemsChanged?.Invoke();
             }
@@ -107,7 +110,39 @@ namespace Core.Interaction
         {
             Debug.Log("Interacting hold with " + gameObject.name);
         }
+        
+        protected virtual void UpdateItemPositions()
+        {
+            if (spawnedPrefabs == null || spawnedPrefabs.Count == 0) return;
 
+            int count = spawnedPrefabs.Count;
+            Transform parent = itemParent != null ? itemParent : transform;
+
+            Vector3 basePos = parent.position + itemOffset;
+
+            if (count == 1)
+            {
+                spawnedPrefabs[0].transform.position = basePos;
+            }
+            else if (count == 2)
+            {
+                spawnedPrefabs[0].transform.position = basePos + parent.right * -0.45f;
+                spawnedPrefabs[1].transform.position = basePos + parent.right * 0.45f;
+            }
+            else
+            {
+                float radius = 0.5f; // adjust spacing
+                float angleStep = 360f / count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    float angle = angleStep * i * Mathf.Deg2Rad;
+                    Vector3 offset = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * radius;
+                    spawnedPrefabs[i].transform.position = basePos + offset;
+                    spawnedPrefabs[i].transform.LookAt(basePos); // optional: make them face center
+                }
+            }
+        }
 #if UNITY_EDITOR
         protected virtual void OnDrawGizmos()
         {
@@ -119,6 +154,16 @@ namespace Core.Interaction
                 fontStyle = FontStyle.Bold
             };
             UnityEditor.Handles.Label(titlePos, gameObject.name, titleStyle);
+
+            Vector3 originPos = (itemParent != null ? itemParent.position : transform.position) + itemOffset;
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(originPos, 0.05f);
+            UnityEditor.Handles.Label(originPos + Vector3.up * 0.1f, "Item Origin", new GUIStyle
+            {
+                normal = new GUIStyleState { textColor = Color.magenta },
+                alignment = TextAnchor.MiddleCenter,
+                fontStyle = FontStyle.Italic
+            });
 
             if (HoldingItems != null && HoldingItems.Count > 0)
             {
@@ -142,5 +187,6 @@ namespace Core.Interaction
             }
         }
 #endif
+
     }
 }
