@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4bd3caa73841db91702d4e49a3246b, type: 3}
   m_Name: SettingsData
   m_EditorClassIdentifier: Assembly-CSharp::Core.Settings.SettingsData
-  targetFrameRate: 60
+  targetFrameRate: 120
