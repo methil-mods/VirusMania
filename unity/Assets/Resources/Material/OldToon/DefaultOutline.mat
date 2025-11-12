@@ -108,7 +108,7 @@ Material:
     - _Cull: 2
     - _CustomNormals: 0
     - _Cutoff: 0.5
-    - _DepthOffsetFactor: -6.15
+    - _DepthOffsetFactor: -2.05
     - _DepthOffsetUnits: -6.95
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -141,7 +141,7 @@ Material:
     - _Reflections: 0
     - _RimStep: 0.686
     - _RimStepSmooth: 0.4
-    - _Scale: 0.05
+    - _Scale: 0.03
     - _ShadowMask: 0
     - _ShadowStep: 0.708
     - _ShadowStepSmooth: 0.248
