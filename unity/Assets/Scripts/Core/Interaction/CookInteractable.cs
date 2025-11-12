@@ -13,7 +13,7 @@ namespace Core.Interaction
         private bool isCooking = false;
         private HoldItem currentItem;
 
-        protected override void Start()
+        protected void Start()
         {
             maxHoldableItems = 1;
             base.Start();

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Core.Interaction;
 using Core.Item;
 using Framework;
@@ -33,6 +34,8 @@ namespace Core.Player
         private bool _isInteractingHeld;
 
         public bool HasItem => _holdingItem != null;
+        
+        private HashSet<Interactable> _interactablesInRange = new HashSet<Interactable>();
 
         public override void Start(PlayerController controller)
         {
@@ -58,6 +61,32 @@ namespace Core.Player
         {
             if (_isInteractingHeld)
                 InteractHold(controller);
+            
+            Vector3 origin = controller.body.transform.position.AddY(1.4f);
+            Vector3 center = origin + _playerMovement.direction * interactionDistance;
+
+            Collider[] hits = Physics.OverlapSphere(center, interactionRadius);
+
+            HashSet<Interactable> currentFrameInteractables = new HashSet<Interactable>();
+
+            foreach (var hit in hits)
+            {
+                if (hit.TryGetComponent<Interactable>(out var interactable))
+                {
+                    interactable.InInteractZone();
+                    currentFrameInteractables.Add(interactable);
+                }
+            }
+
+            foreach (var oldInteractable in _interactablesInRange)
+            {
+                if (!currentFrameInteractables.Contains(oldInteractable))
+                {
+                    oldInteractable.HideIndicator();
+                }
+            }
+
+            _interactablesInRange = currentFrameInteractables;
         }
 
         public void InteractHold(PlayerController playerController)
@@ -68,7 +97,7 @@ namespace Core.Player
             Collider[] hits = Physics.OverlapSphere(center, interactionRadius);
             foreach (var hit in hits)
             {
-                if (hit.TryGetComponent<IInteractable>(out var holdable))
+                if (hit.TryGetComponent<Interactable>(out var holdable))
                     holdable.InteractHold(playerController);
             }
         }
@@ -81,7 +110,7 @@ namespace Core.Player
             Collider[] hits = Physics.OverlapSphere(center, interactionRadius);
             foreach (var hit in hits)
             {
-                if (hit.TryGetComponent<IInteractable>(out var interactable))
+                if (hit.TryGetComponent<Interactable>(out var interactable))
                 {
                     interactable.Interact(controller);
                     break;

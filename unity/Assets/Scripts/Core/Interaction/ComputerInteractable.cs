@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Core.Interaction
 {
-    public class ComputerInteractable : MonoBehaviour, IInteractable
+    public class ComputerInteractable : Interactable
     {
-        public void Interact(PlayerController playerController)
+        public override void Interact(PlayerController playerController)
         {
             ComputerInterface.Instance.OpenPanel();
         }
 
-        public void InteractHold(PlayerController playerController)
+        public override void InteractHold(PlayerController playerController)
         {
             
         }

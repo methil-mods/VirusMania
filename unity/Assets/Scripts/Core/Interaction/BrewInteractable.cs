@@ -17,7 +17,7 @@ namespace Core.Interaction
         private bool isBeingHeld = false;
         private float lastHoldTime = -999f;
 
-        protected override void Start()
+        protected void Start()
         {
             base.Start();
 

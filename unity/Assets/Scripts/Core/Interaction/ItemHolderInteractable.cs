@@ -8,7 +8,7 @@ using UnityEngine.Events;
 
 namespace Core.Interaction
 {
-    public class ItemHolderInteractable : MonoBehaviour, IInteractable
+    public class ItemHolderInteractable : Interactable
     {
         [Header("Configuration")]
         [SerializeField] protected int maxHoldableItems = 3;
@@ -25,8 +25,10 @@ namespace Core.Interaction
         public List<HoldItem> HoldingItems = new List<HoldItem>();
         protected List<GameObject> spawnedPrefabs = new List<GameObject>();
 
-        protected virtual void Start()
+        public void Start()
         {
+            base.Start();
+
             if (startItems != null && startItems.Count > 0)
             {
                 foreach (var item in startItems)
@@ -42,7 +44,7 @@ namespace Core.Interaction
             return HoldingItems.Count < maxHoldableItems;
         }
 
-        public virtual void Interact(PlayerController playerController)
+        public override void Interact(PlayerController playerController)
         {
             PlayerInteraction playerInteraction = playerController.updatables.FirstOfType<PlayerInteraction>();
             if (playerInteraction == null) return;
@@ -106,7 +108,7 @@ namespace Core.Interaction
             }
         }
 
-        public virtual void InteractHold(PlayerController playerController)
+        public override void InteractHold(PlayerController playerController)
         {
             Debug.Log("Interacting hold with " + gameObject.name);
         }

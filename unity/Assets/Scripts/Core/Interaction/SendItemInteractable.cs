@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace Core.Interaction
 {
-    public class SendItemInteractable : MonoBehaviour, IInteractable
+    public class SendItemInteractable : Interactable
     {
-        public void Interact(PlayerController playerController)
+        public override void Interact(PlayerController playerController)
         {
             PlayerInteraction playerInteraction = playerController.updatables.FirstOfType<PlayerInteraction>();
             if (playerInteraction == null) return;
@@ -33,7 +33,7 @@ namespace Core.Interaction
             }
         }
 
-        public void InteractHold(PlayerController playerController)
+        public override void InteractHold(PlayerController playerController)
         {
             // Debug.Log("Interacting hold with " + gameObject.name);
         }
