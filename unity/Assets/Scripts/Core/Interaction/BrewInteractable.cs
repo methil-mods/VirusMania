@@ -84,14 +84,14 @@ namespace Core.Interaction
         private void TryMergeItems()
         {
             Item.Item[] itemsToMerge = HoldingItems.ConvertAll(h => h.Item).ToArray();
-            Item.Item mergedItem = MergeUtils.TryMerge(itemsToMerge);
+            HoldItem mergedHoldItem = MergeUtils.TryMerge(itemsToMerge);
 
-            if (mergedItem != null)
+            if (mergedHoldItem != null)
             {
                 foreach (var h in new List<HoldItem>(HoldingItems))
                     RemoveItem(h);
 
-                AddItem(mergedItem.GetHoldItem());
+                AddItem(mergedHoldItem);
                 ResetFusion();
             }
         }

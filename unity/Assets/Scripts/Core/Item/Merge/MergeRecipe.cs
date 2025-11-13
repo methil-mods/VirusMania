@@ -1,17 +1,18 @@
+using Core.Item.Holder;
 using UnityEngine;
 
 namespace Core.Item.Merge
 {
     [CreateAssetMenu(fileName = "MergeRecipe", menuName = "Item/MergeRecipe")]
-    public class MergeRecipe : ScriptableObject
+    public class MergeRecipe<TInput, TResult> : MergeRecipeBase where TInput: Item where TResult: Item 
     {
         [Header("Items to merge")]
-        public Item[] inputItems;
+        public TInput[] inputItems;
 
         [Header("Resulting item")]
-        public Item resultItem;
+        public TResult resultItem;
 
-        public bool Matches(Item[] items)
+        public override bool Matches(Item[] items)
         {
             if (items.Length != inputItems.Length) return false;
             
@@ -31,6 +32,11 @@ namespace Core.Item.Merge
             }
 
             return true;
+        }
+
+        public override HoldItem GetResultItem()
+        {
+            return resultItem.GetHoldItem();
         }
     }
 }

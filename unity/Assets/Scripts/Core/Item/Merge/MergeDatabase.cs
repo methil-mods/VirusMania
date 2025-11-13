@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace Core.Item.Merge
 {
-    [CreateAssetMenu(fileName = "MergeDatabase", menuName = "Item/MergeDatabase")]
-    public class MergeDatabase : SingletonScriptableDatabase<MergeDatabase, MergeRecipe>
+    [CreateAssetMenu(fileName = "MergeDatabase", menuName = "MergeRecipe/MergeDatabase")]
+    public class MergeDatabase : SingletonScriptableDatabase<MergeDatabase, MergeRecipeBase> 
     {
         
     }

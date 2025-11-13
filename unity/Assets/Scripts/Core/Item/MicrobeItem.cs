@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Core.Item
 {
-    [CreateAssetMenu(fileName = "BacteriaItem", menuName = "Item/BacteriaItem")]
-    public class BacteriaItem : Item
+    [CreateAssetMenu(fileName = "MicrobeItem", menuName = "Item/MicrobeItem")]
+    public class MicrobeItem : Item
     {
         [SerializeField]
         public ThreatParameter[] threatParameters;
