@@ -1,3 +1,4 @@
+using Core.Item.Holder;
 using UnityEngine;
 
 namespace Core.Item

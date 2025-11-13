@@ -3,6 +3,7 @@ using Core.Interaction;
 using UnityEngine;
 using UnityEngine.UI;
 using Core.Item;
+using Core.Item.Holder;
 using Core.Money;
 using UnityEngine.Events;
 

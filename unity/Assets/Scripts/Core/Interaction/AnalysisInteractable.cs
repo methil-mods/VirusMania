@@ -3,6 +3,8 @@ using Core.Item;
 using Core.Item.Merge;
 using Core.Player;
 using UnityEngine;
+using UnityEngine.Splines.Interpolators;
+using UnityEngine.UI;
 
 namespace Core.Interaction
 {
@@ -13,18 +15,25 @@ namespace Core.Interaction
         [SerializeField] private float cooldownSpeed = 1f;
         [SerializeField] private float holdReleaseDelay = 0.1f;
 
-        private float holdTimer = 0f;
-        private bool isBeingHeld = false;
-        private float lastHoldTime = -999f;
         [SerializeField]
         private Animator analysisAnimator;
+        public Image holdInteractImage;
+        
+        private float lastHoldTime = -999f;
+        private float holdTimer = 0f;
+        private bool isBeingHeld = false;
+        private bool isSliderVisible = false;
 
-        protected void Start()
+        public override void Start()
         {
             base.Start();
 
+            holdInteractImage.material = new Material(holdInteractImage.material);
+            
             OnItemAdded += (_ => ResetAnalysis());
             OnItemRemoved += (_ => ResetAnalysis());
+            
+            holdInteractImage.GetComponent<RectTransform>().localScale = Vector2.zero;
         }
 
         private void Update()
@@ -35,6 +44,25 @@ namespace Core.Interaction
             if (!isBeingHeld && holdTimer > 0f)
                 holdTimer = Mathf.Max(0f, holdTimer - Time.deltaTime * cooldownSpeed);
             
+            if (holdTimer <= 0.3f && isSliderVisible)
+            {
+                isSliderVisible = false;
+                LeanTween.cancel(holdInteractImage.gameObject);
+                LeanTween.scale(holdInteractImage.GetComponent<RectTransform>(), Vector3.zero, 0.4f)
+                    .setEase(LeanTweenType.easeInBack);
+            }
+            else if (holdTimer > 0.3f && !isSliderVisible)
+            {
+                isSliderVisible = true;
+                LeanTween.cancel(holdInteractImage.gameObject);
+                LeanTween.scale(holdInteractImage.GetComponent<RectTransform>(), Vector3.one, 0.4f)
+                    .setEase(LeanTweenType.easeOutBack);
+            }
+            
+            holdInteractImage.material.SetFloat("_InnerFillAmount", Mathf.Lerp(
+                holdInteractImage.material.GetFloat("_InnerFillAmount"), holdTimer / mergeHoldTime * 100 / 100, .1f
+            ));
+            
             analysisAnimator.SetBool("IsInteracting", false);
         }
 
@@ -44,7 +72,7 @@ namespace Core.Interaction
             analysisAnimator.SetBool("IsInteracting", true);
             lastHoldTime = Time.time;
 
-            if (HoldingItems.Count < 2)
+            if (HoldingItems.Count < 1)
             {
                 holdTimer = 0f;
                 return;

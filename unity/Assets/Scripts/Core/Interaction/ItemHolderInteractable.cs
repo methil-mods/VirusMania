@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Item;
+using Core.Item.Holder;
 using Core.Player;
 using Framework.Extensions;
 using UnityEngine;
@@ -25,7 +26,7 @@ namespace Core.Interaction
         public List<HoldItem> HoldingItems = new List<HoldItem>();
         protected List<GameObject> spawnedPrefabs = new List<GameObject>();
 
-        public void Start()
+        public override void Start()
         {
             base.Start();
 

@@ -1,9 +1,8 @@
-using System;
 using Core.Brief;
-using Core.Item;
 using Core.Player;
 using Framework.Extensions;
 using UnityEngine;
+using Core.Item.Holder;
 
 namespace Core.Interaction
 {

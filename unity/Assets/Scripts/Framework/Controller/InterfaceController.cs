@@ -10,7 +10,7 @@ namespace Framework.Controller
         public UnityAction OnPanelOpen;
         public UnityAction OnPanelClose;
 
-        protected void Start()
+        public virtual void Start()
         {
             if (panel != null)
             {

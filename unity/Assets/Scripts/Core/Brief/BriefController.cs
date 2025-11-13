@@ -1,9 +1,9 @@
-using System;
-using Core.Item;
+using Core.Item.Holder;
 using Core.Money;
 using Framework.Controller;
 using Framework.Extensions;
 using UnityEngine;
+
 
 namespace Core.Brief
 {
@@ -18,7 +18,6 @@ namespace Core.Brief
         {
             NewBrief();
         }
-        
         
         public void NewBrief()
         {

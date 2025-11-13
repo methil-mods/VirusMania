@@ -1,6 +1,6 @@
 using System;
 
-namespace Core.Item
+namespace Core.Item.Holder
 {
     public class HoldItem
     {

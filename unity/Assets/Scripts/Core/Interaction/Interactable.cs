@@ -12,7 +12,10 @@ namespace Core.Interaction
         public UnityAction InInteraction;
         public UnityAction OutInteraction;
 
-        public void Start()
+        [SerializeField]
+        private Vector3 interactionIndicatorOffset;
+
+        public virtual void Start()
         {
             if (PrefabDatabase.Instance.interactionIndicationPrefab != null)
             {
@@ -24,6 +27,8 @@ namespace Core.Interaction
                 );
 
                 _interactionIndicator.transform.position = transform.position + new Vector3(0f, 3.5f, 0.5f);
+                _interactionIndicator.transform.position =
+                    (_interactionIndicator.transform.position + interactionIndicatorOffset);
                 _interactionIndicator.transform.rotation = Quaternion.identity;
                 _interactionIndicator.transform.localScale = Vector3.zero;
                 _interactionIndicator.SetActive(false);

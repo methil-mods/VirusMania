@@ -1,6 +1,7 @@
 using Core.Item;
 using Core.Item.Cook;
 using UnityEngine;
+using Core.Item.Holder;
 
 namespace Core.Interaction
 {
@@ -13,7 +14,7 @@ namespace Core.Interaction
         private bool isCooking = false;
         private HoldItem currentItem;
 
-        protected void Start()
+        public override void Start()
         {
             maxHoldableItems = 1;
             base.Start();

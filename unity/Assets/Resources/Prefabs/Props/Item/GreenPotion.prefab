@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916156524809197225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.63557726, y: 0.30990568, z: 0.6355773, w: -0.30990568}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.00311, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5776728032281565873}
-  m_LocalEulerAnglesHint: {x: 231.987, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &8084185714976244066
 Light:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.13586688, g: 1, b: 0, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.5
   m_Range: 3.248347
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -83,7 +83,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 0.94}
   m_BounceIntensity: 1
@@ -310,7 +310,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 22b31b32e0b264edd99c6e60a0cb6bb4, type: 2}
     - target: {fileID: 919132149155446097, guid: 116d817648c954792af60cd92f9f9e8b, type: 3}
       propertyPath: m_Name
-      value: Potion
+      value: GreenPotion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Core.Interaction;
-using Core.Item;
 using Framework;
 using Framework.Extensions;
-using JetBrains.Annotations;
+using Core.Item.Holder;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

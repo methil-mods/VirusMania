@@ -11,7 +11,7 @@ namespace Core.Computer
 {
     public class ComputerInterface : InterfaceController<ComputerInterface>
     {
-        public void Start()
+        public override void Start()
         {
             base.Start();
 

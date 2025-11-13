@@ -1,3 +1,4 @@
+using Core.Item.Holder;
 using UnityEngine;
 
 namespace Core.Item
@@ -5,6 +6,9 @@ namespace Core.Item
     [CreateAssetMenu(fileName = "VirusItem", menuName = "Item/VirusItem")]
     public class VirusItem : Item
     {
-
+        public override HoldItem GetHoldItem()
+        {
+            return new HoldVirusItem(this);
+        }
     }
 }

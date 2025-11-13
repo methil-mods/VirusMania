@@ -6,7 +6,7 @@ namespace Core.Interaction
     {
         public Animator flapAnimator;
 
-        public void Start()
+        public override void Start()
         {
             base.Start();
             
