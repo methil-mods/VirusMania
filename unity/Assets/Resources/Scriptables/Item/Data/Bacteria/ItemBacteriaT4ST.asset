@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62aa5f3e24c34ef09489cc741430ff22, type: 3}
+  m_Script: {fileID: 11500000, guid: e1aaa388ae224effb415e9d67f5f2a81, type: 3}
   m_Name: ItemBacteriaT4ST
-  m_EditorClassIdentifier: Assembly-CSharp::Core.Item.Item
+  m_EditorClassIdentifier: Assembly-CSharp::Core.Item.BacteriaItem
   itemName: BacteriaT4ST
   itemDescription: 
   itemPrefab: {fileID: 6584508006877052939, guid: 257813f18691d450d851599bb845b884, type: 3}
   itemIcon: {fileID: 0}
   price: 2
+  threatParameters: []

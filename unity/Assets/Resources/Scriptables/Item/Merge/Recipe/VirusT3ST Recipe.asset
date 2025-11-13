@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: VirusT3ST Recipe
   m_EditorClassIdentifier: Assembly-CSharp::Core.Item.Merge.MergeRecipe
   inputItems:
-  - {fileID: 11400000, guid: 39502d78a92174d59bded3c162ba419e, type: 2}
-  - {fileID: 11400000, guid: 2efb76b9ef93843b3816f1e68cbaaec1, type: 2}
-  resultItem: {fileID: 11400000, guid: eef873dfaef0e4d03b1fd9a4b02f1464, type: 2}
+  - {fileID: 11400000, guid: bbb1b3ad4fdfd4ac5a13e8bee1c033e2, type: 2}
+  - {fileID: 11400000, guid: ce074d8c802044bb0898437f0113afa8, type: 2}
+  resultItem: {fileID: 11400000, guid: 9e4456c8ba1fd4fa49a9a41ca9b9201e, type: 2}
