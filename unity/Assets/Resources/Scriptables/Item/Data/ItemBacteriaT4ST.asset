@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Core.Item.Item
   itemName: BacteriaT4ST
   itemDescription: 
-  itemPrefab: {fileID: 207211337200041120, guid: 5db51300b3c6f4020b196d15afacb933, type: 3}
+  itemPrefab: {fileID: 6584508006877052939, guid: 257813f18691d450d851599bb845b884, type: 3}
   itemIcon: {fileID: 0}
   price: 2

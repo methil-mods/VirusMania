@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MethilLiquid
+  m_Name: MethilGreenLiquid
   m_Shader: {fileID: -6465566751694194690, guid: 9fb3df0dffbfe4858b5dcad5567c08e9, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -58,7 +58,7 @@ Material:
     - _WobbleZ: 0
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 1}
-    - _SideColor: {r: 2.0273633, g: 7.9066997, b: 1.9766749, a: 1}
-    - _TopColor: {r: 3.9047606, g: 7.906698, b: 3.4685042, a: 1}
+    - _SideColor: {r: 0.5432995, g: 5.992157, b: 0, a: 1}
+    - _TopColor: {r: 0.13499092, g: 11.984314, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
