@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Core.Computer.PathoNet;
 using Core.Input;
 using Core.PostProcess;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace Core.Computer
         public void Start()
         {
             base.Start();
+
+            panel.GetComponentInChildren<PathoNetInterface>().OnBuyCart += ClosePanel;
         }
         
         public override void OpenPanel()

@@ -75,6 +75,7 @@ namespace Core.Player
                 {
                     interactable.InInteractZone();
                     currentFrameInteractables.Add(interactable);
+                    break;
                 }
             }
 
@@ -98,7 +99,10 @@ namespace Core.Player
             foreach (var hit in hits)
             {
                 if (hit.TryGetComponent<Interactable>(out var holdable))
+                {
                     holdable.InteractHold(playerController);
+                    break;
+                }
             }
         }
 
