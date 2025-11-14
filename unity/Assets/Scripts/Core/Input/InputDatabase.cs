@@ -13,5 +13,19 @@ namespace Core.Input
         [Header("Interaction Input")]
         public InputActionReference interactionAction;
         public InputActionReference interactionHoldAction;
+
+        public void DisableInputs()
+        {
+            moveAction.action.Disable();
+            interactionAction.action.Disable();
+            interactionHoldAction.action.Disable();
+        }
+
+        public void EnableInputs()
+        {
+            moveAction.action.Enable();
+            interactionAction.action.Enable();
+            interactionHoldAction.action.Enable();
+        }
     }
 }

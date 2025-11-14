@@ -25,7 +25,7 @@ namespace Core.Computer
             panel.GetComponent<RectTransform>().localScale = Vector3.zero;
             
             PostProcessController.Instance.OnShowPanelPostProcess();
-            InputDatabase.Instance.moveAction.action.Disable();
+            InputDatabase.Instance.DisableInputs();
             
             LeanTween.cancel(panel);
             LeanTween.scale(panel.GetComponent<RectTransform>(), new Vector3(1f, 1f, 1f), .4f)
@@ -41,7 +41,7 @@ namespace Core.Computer
             if (panel == null) return;
             
             PostProcessController.Instance.OnHidePanelPostProcess();
-            InputDatabase.Instance.moveAction.action.Enable();
+            InputDatabase.Instance.EnableInputs();
             
             LeanTween.cancel(panel);
             LeanTween.scale(panel.GetComponent<RectTransform>(), new Vector3(0f, 0f, 0f), .4f)
