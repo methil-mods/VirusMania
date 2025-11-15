@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ThreatContainer
+  m_Name: ThreatPlusContainer
   m_Shader: {fileID: 4800000, guid: 661f0f48a63a476fb9b0250fe80ea0ca, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -51,6 +51,6 @@ Material:
     - _BorderColor: {r: 0.006918293, g: 0.3490566, b: 0, a: 1}
     - _Color1: {r: 0, g: 1, b: 0.08719444, a: 1}
     - _Color2: {r: 0, g: 0.5849056, b: 0.004974266, a: 1}
-    - _FillColor: {r: 1, g: 1, b: 1, a: 1}
+    - _FillColor: {r: 0.050980393, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

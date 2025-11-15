@@ -10,7 +10,7 @@ namespace Core.Scene
     {
         public Image loadingScreenImage;
         [SerializeField]
-        private Slider loadingSlider;
+        private Image loadingSlider;
         private bool _sceneIsSwapping;
 
         public void StartToLoadScene(int sceneToLoad){
@@ -27,6 +27,9 @@ namespace Core.Scene
         }
 
         private IEnumerator LoadScene(int sceneToLoad, Action onEndCallback){
+            loadingSlider.material = new Material(loadingSlider.material);
+            loadingSlider.material.SetFloat("_InnerFillAmount", 0f);
+            loadingSlider.gameObject.SetActive(true);
             _sceneIsSwapping = true;
             float startPosition = loadingScreenImage.rectTransform.position.y;
             CanvasGroup canvasGroup = loadingScreenImage.GetComponent<CanvasGroup>();
@@ -38,18 +41,19 @@ namespace Core.Scene
 
             AsyncOperation asyncSceneToLoad = SceneManager.LoadSceneAsync(sceneToLoad);
             asyncSceneToLoad.allowSceneActivation = false; // stop the level from activating
-
-            while (asyncSceneToLoad.progress < 0.9f){
-                loadingSlider.value = asyncSceneToLoad.progress;
+            while (asyncSceneToLoad.progress < 0.9f)
+            {
+                loadingSlider.material.SetFloat("_InnerFillAmount", asyncSceneToLoad.progress);
                 yield return new WaitForEndOfFrame();
             } 
 
-            loadingSlider.value = 1f;
+            loadingSlider.material.SetFloat("_InnerFillAmount", 1f);
             asyncSceneToLoad.allowSceneActivation = true; // this will enter the level now
             yield return new WaitForEndOfFrame();
             yield return new WaitForFixedUpdate();
             onEndCallback.Invoke();
             yield return new WaitForSeconds(0.2f);
+            loadingSlider.gameObject.SetActive(false);
             LeanTween.alphaCanvas(canvasGroup, 0f, 1f)
                 .setEase( LeanTweenType.easeOutQuart )
                 .setIgnoreTimeScale(true);
