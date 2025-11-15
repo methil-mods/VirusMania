@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: PrefabDatabase
   m_EditorClassIdentifier: Assembly-CSharp::Core.Prefab.PrefabDatabase
   interactionIndicationPrefab: {fileID: 6305911284788283360, guid: 8d06d9cd4e4c1414085b9a209b253674, type: 3}
+  analysisThreatPrefab: {fileID: 1145017837849204852, guid: 5a84ebc5c2a5448fcb1db467dc7ac47d, type: 3}
+  analysisThreatPlusPrefab: {fileID: 5125954472093223614, guid: d09efcf6b3c2047d0b8d967bc455db35, type: 3}
+  analysisThreatMinusPrefab: {fileID: 3584606365905889003, guid: e2254700a7928407d9670253727472ee, type: 3}

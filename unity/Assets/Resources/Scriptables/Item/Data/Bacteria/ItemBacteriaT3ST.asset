@@ -17,4 +17,6 @@ MonoBehaviour:
   itemPrefab: {fileID: 6584508006877052939, guid: 9d94a1cbebf3a45b9a0ccd35d39d4de2, type: 3}
   itemIcon: {fileID: 0}
   price: 1
-  threatParameters: []
+  threatParameters:
+  - threatType: {fileID: 11400000, guid: f0c0de43ab7cb404da148712550cd5b7, type: 2}
+    threatImpact: 3

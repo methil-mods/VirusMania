@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4009487d80ff4cff9d53966822d4229c, type: 3}
-  m_Name: VirusT3ST
+  m_Name: DiseaseMax
   m_EditorClassIdentifier: Assembly-CSharp::Core.Item.VirusItem
-  itemName: VirusT3ST
+  itemName: DiseaseMax
   itemDescription: 
   itemPrefab: {fileID: 207211337200041120, guid: 5db51300b3c6f4020b196d15afacb933, type: 3}
   itemIcon: {fileID: 0}

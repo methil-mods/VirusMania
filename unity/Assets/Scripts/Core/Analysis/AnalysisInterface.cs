@@ -1,18 +1,41 @@
+using System.Collections.Generic;
 using Core.Input;
 using Core.Item.Holder;
 using Core.PostProcess;
+using Core.Prefab;
 using Framework.Controller;
+using TMPro;
 using UnityEngine;
 
 namespace Core.Analysis
 {
     public class AnalysisInterface : InterfaceController<AnalysisInterface>
     {
+        [Header("Disease Text")] 
+        public TextMeshProUGUI diseaseNameText;
+        public RectTransform diseaseThreatContainer;
+        
         private HoldItem _holdItem;
         
         public void ShowAnalysis(HoldItem holdItemAnalyzed)
         {
             _holdItem = holdItemAnalyzed;
+            diseaseNameText.text = holdItemAnalyzed.Item.itemName;
+            foreach (Transform child in diseaseThreatContainer)
+            {
+                Destroy(child.gameObject);
+            }
+
+            if (holdItemAnalyzed is HoldVirusItem holdVirusItem)
+            {
+                List<ThreatImpact> threatImpacts = holdVirusItem.GetThreatImpacts();
+                foreach (var impact in threatImpacts)
+                {
+                    var threatPrefab = Instantiate(PrefabDatabase.Instance.analysisThreatPrefab, diseaseThreatContainer);
+                    threatPrefab.GetComponent<ThreatOfDiseasePrefab>().Setup(impact.ThreatType.threatTypeIcon, impact.ThreatLevel);
+                }
+            }
+            
             OpenPanel();
         }
         

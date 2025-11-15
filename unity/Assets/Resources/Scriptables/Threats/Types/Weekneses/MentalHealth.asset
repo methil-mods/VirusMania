@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72a3cdbaced44ee2af4b3b149070675c, type: 3}
   m_Name: MentalHealth
   m_EditorClassIdentifier: Assembly-CSharp::Core.Threats.ThreatType
-  treatTypeName: Mental health
+  threatTypeName: 
+  threatTypeIcon: {fileID: 21300000, guid: 70141d51621e24facbca9196bbde84b4, type: 3}

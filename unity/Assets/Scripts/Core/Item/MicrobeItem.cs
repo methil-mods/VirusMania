@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Core.Threats;
 using UnityEngine;
 
@@ -15,6 +16,6 @@ namespace Core.Item
     public class ThreatParameter
     {
         public ThreatType threatType;
-        public float threatImpact;
+        public int threatImpact;
     }
 }
