@@ -36,6 +36,8 @@ namespace Core.Interaction
             OnItemRemoved += (_ => ResetAnalysis());
             
             holdInteractImage.GetComponent<RectTransform>().localScale = Vector2.zero;
+            
+            analysisAnimator.SetBool("IsInteracting", false);
         }
 
         private void Update()
@@ -52,6 +54,7 @@ namespace Core.Interaction
                 LeanTween.cancel(holdInteractImage.gameObject);
                 LeanTween.scale(holdInteractImage.GetComponent<RectTransform>(), Vector3.zero, 0.4f)
                     .setEase(LeanTweenType.easeInBack);
+                analysisAnimator.SetBool("IsInteracting", false);
             }
             else if (holdTimer > 0.3f && !isSliderVisible)
             {
@@ -59,19 +62,17 @@ namespace Core.Interaction
                 LeanTween.cancel(holdInteractImage.gameObject);
                 LeanTween.scale(holdInteractImage.GetComponent<RectTransform>(), Vector3.one, 0.4f)
                     .setEase(LeanTweenType.easeOutBack);
+                analysisAnimator.SetBool("IsInteracting", true);
             }
             
             holdInteractImage.material.SetFloat("_InnerFillAmount", Mathf.Lerp(
                 holdInteractImage.material.GetFloat("_InnerFillAmount"), holdTimer / mergeHoldTime * 100 / 100, .1f
             ));
-            
-            analysisAnimator.SetBool("IsInteracting", false);
         }
 
         public override void InteractHold(PlayerController playerController)
         {
             isBeingHeld = true;
-            analysisAnimator.SetBool("IsInteracting", true);
             lastHoldTime = Time.time;
 
             if (HoldingItems.Count < 1)

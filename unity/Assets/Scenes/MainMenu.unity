@@ -1215,19 +1215,19 @@ MonoBehaviour:
   m_SamplingScale: 1
   m_TransitionFilter: 8
   m_TransitionRate: 0
-  m_TransitionReverse: 0
-  m_TransitionTex: {fileID: 2800000, guid: 40d1a96251dfd4353a7d28680e56c2e7, type: 3}
+  m_TransitionReverse: 1
+  m_TransitionTex: {fileID: 2800000, guid: 3bad36748075a4e18b78ad8641933256, type: 3}
   m_TransitionTexScale: {x: 1, y: 1}
   m_TransitionTexOffset: {x: 0, y: 0}
   m_TransitionTexSpeed: {x: 0, y: 0}
-  m_TransitionRotation: 45
+  m_TransitionRotation: 199
   m_TransitionKeepAspectRatio: 1
-  m_TransitionWidth: 0.5
+  m_TransitionWidth: 0.64
   m_TransitionSoftness: 0.475
   m_TransitionRange:
-    m_Min: 0
-    m_Max: 1
-  m_TransitionColorFilter: 1
+    m_Min: 0.16593887
+    m_Max: 0.99999994
+  m_TransitionColorFilter: 4
   m_TransitionColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   m_TransitionColorGlow: 0
   m_TransitionPatternReverse: 0

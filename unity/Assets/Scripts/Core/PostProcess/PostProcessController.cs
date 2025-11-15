@@ -51,7 +51,7 @@ namespace Core.PostProcess
             if (vignetteEffect != null)
             {
                 if (vignetteTweenId != -1) LeanTween.cancel(vignetteTweenId);
-                vignetteTweenId = LeanTween.value(gameObject, vignetteEffect.intensity.value, 0.2f, 0.24f)
+                vignetteTweenId = LeanTween.value(gameObject, vignetteEffect.intensity.value, 0.2f, 0.3f)
                     .setOnUpdate((float val) => { vignetteEffect.intensity.value = val; })
                     .id;
             }

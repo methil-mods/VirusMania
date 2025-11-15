@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd697b4f13904650aeff79b89b6d0e14, type: 3}
   m_Name: HumanWeeknesses
   m_EditorClassIdentifier: Assembly-CSharp::Core.Threats.ThreatTypeDatabase
-  databaseName: HumanWeeknesses
+  databaseName: HumanWeaknesses
   threatTypes:
   - {fileID: 11400000, guid: 814894de4cd124859afee9f6118c8afe, type: 2}
   - {fileID: 11400000, guid: 2333fc3a48e38470b97e4e91ed198c87, type: 2}
